@@ -2,29 +2,121 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Android AR Test - ASSIEME </title>
+<title>Android AR Test - ASSIEME</title>
 <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 <style>
-body { margin: 0; padding: 0; background: #111; font-family: sans-serif; text-align: center; color: white; }
-model-viewer { width: 100vw; height: 80vh; }
-h1 { margin-top: 20px; }
+  body { 
+    margin: 0; 
+    padding: 0; 
+    background: #111; 
+    font-family: sans-serif; 
+    text-align: center; 
+    color: white; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+  }
+  model-viewer { 
+    width: 100vw; 
+    height: 70vh; 
+  }
+  h1 { 
+    margin: 10px 0; 
+  }
+
+  /* Contenitore delle sezioni */
+  .controls-section {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    width: 95vw;
+  }
+
+  .controls-section h3 {
+    margin: 0;
+    margin-right: 15px;
+    font-size: 1.2rem;
+    min-width: 160px;
+    text-align: left;
+  }
+
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    color: white;
+    min-width: 80px;
+  }
+
+  .green { background: green; }
+  .blue { background: blue; }
+  .yellow { background: goldenrod; }
+  .lightgray { background: lightgray; color: black; }
+  .darkgray { background: dimgray; }
+  .red { background: red; }
 </style>
 </head>
 <body>
-<h1>Test AR su Android</h1>
-<model-viewer
-src="SMC50_C_8A.glb"
-ar
-ar-modes="scene-viewer"
-camera-controls
-auto-rotate
-autoplay
-shadow-intensity="1"
-exposure="1"
-alt="ASSIEME Model"
-quick-look-browsers="safari">
-</model-viewer>
-<p>On Android, touch the button AR in bottom down position.</p>
+  <h1>Test AR su Android</h1>
+
+  <model-viewer id="viewer"
+    src="ASSIEME.glb"
+    ar
+    ar-modes="scene-viewer"
+    camera-controls
+    auto-rotate
+    shadow-intensity="1"
+    exposure="1"
+    alt="ASSIEME Model"
+    quick-look-browsers="safari">
+  </model-viewer>
+
+  <!-- Prima fila: Structure color -->
+  <div class="controls-section">
+    <h3>Structure Color</h3>
+    <div class="controls">
+      <button class="green" onclick="changeColor(0, [0, 1, 0, 1])">Verde</button>
+      <button class="blue" onclick="changeColor(0, [0, 0, 1, 1])">Blu</button>
+      <button class="yellow" onclick="changeColor(0, [1, 1, 0, 1])">Giallo</button>
+      <button class="lightgray" onclick="changeColor(0, [0.83, 0.83, 0.83, 1])">Grigio chiaro</button>
+      <button class="darkgray" onclick="changeColor(0, [0.33, 0.33, 0.33, 1])">Grigio scuro</button>
+      <button class="red" onclick="changeColor(0, [1, 0, 0, 1])">Rosso</button>
+    </div>
+  </div>
+
+  <!-- Seconda fila: Mobile Parts color -->
+  <div class="controls-section">
+    <h3>Mobile Parts Color</h3>
+    <div class="controls">
+      <button class="green" onclick="changeColor(1, [0, 1, 0, 1])">Verde</button>
+      <button class="blue" onclick="changeColor(1, [0, 0, 1, 1])">Blu</button>
+      <button class="yellow" onclick="changeColor(1, [1, 1, 0, 1])">Giallo</button>
+      <button class="lightgray" onclick="changeColor(1, [0.83, 0.83, 0.83, 1])">Grigio chiaro</button>
+      <button class="darkgray" onclick="changeColor(1, [0.33, 0.33, 0.33, 1])">Grigio scuro</button>
+      <button class="red" onclick="changeColor(1, [1, 0, 0, 1])">Rosso</button>
+    </div>
+  </div>
+
+  <p>Se sei su Android, tocca l’icona AR in basso a destra.</p>
+
+  <script>
+    const modelViewer = document.querySelector('#viewer');
+
+    async function changeColor(materialIndex, rgba) {
+      const material = modelViewer.model.materials[materialIndex];
+      if (material && material.pbrMetallicRoughness) {
+        material.pbrMetallicRoughness.setBaseColorFactor(rgba);
+      }
+    }
+  </script>
 </body>
 </html>
 
