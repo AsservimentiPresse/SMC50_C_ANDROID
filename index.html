@@ -23,6 +23,17 @@
   h1 { 
     margin: 10px 0; 
   }
+  /* 🔽 STILE DEL PULSANTE AR (angolo in basso a destra) */
+  model-viewer::part(default-ar-button) {
+    width: 120px;              /* larghezza più grande */
+    height: 120px;             /* altezza più grande */
+    border-radius: 50%;        /* forma circolare */
+    background-color: green;   /* colore di sfondo */
+    color: white;              /* colore dell’icona */
+    font-size: 2rem;           /* icona più grande */
+    border: none;              /* senza bordo */
+  }
+  /* ↑↑↑ Questo stile modifica SOLO il bottone AR */
 
   /* Contenitore delle sezioni */
   .controls-section {
@@ -120,6 +131,7 @@
   </script>
 </body>
 </html>
+
 
 
 
